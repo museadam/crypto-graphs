@@ -2,15 +2,17 @@
 	import { onMount } from 'svelte';
 	import { Chart } from 'chart.js/auto';
 
-	let { type, chartData, options = {} } = $props();
+	let { type, chartData, options = {}, chart = $bindable() } = $props();
 
 	let canvas = $state();
 
 	onMount(() => {
-		const chart = new Chart(canvas, {
+		chart = new Chart(canvas, {
 			type,
 			data: chartData,
-			options
+			options: {
+				...options
+			}
 		});
 		console.log(chart);
 
